@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="littleencrypter.menu.MenuPresenter">
+   <children>
+      <MenuBar prefWidth="410.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#close" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="View">
+            <items>
+                  <RadioMenuItem fx:id="encryptItem" mnemonicParsing="false" onAction="#showEncrypt" selected="true" text="Encrypt">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="viewGrp" />
+                     </toggleGroup></RadioMenuItem>
+                  <RadioMenuItem fx:id="decryptItem" mnemonicParsing="false" onAction="#showDecrypt" text="Decrypt" toggleGroup="$viewGrp" />
+                  <RadioMenuItem fx:id="settingsItem" mnemonicParsing="false" onAction="#showSettings" text="Settings" toggleGroup="$viewGrp" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#showAbout" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <ToolBar layoutY="25.0">
+        <items>
+            <Button fx:id="encryptBtn" mnemonicParsing="false" onAction="#showEncrypt" prefHeight="40.0" prefWidth="130.0" text="Encrypt" />
+            <Button fx:id="decryptBtn" mnemonicParsing="false" onAction="#showDecrypt" prefHeight="40.0" prefWidth="130.0" text="Decrypt" />
+            <Button fx:id="settingsBtn" mnemonicParsing="false" onAction="#showSettings" prefHeight="40.0" prefWidth="130.0" text="Settings" />
+        </items>
+      </ToolBar>
+    <AnchorPane fx:id="contentPane" layoutY="75.0" prefHeight="260.0" prefWidth="410.0" AnchorPane.topAnchor="75.0" />
+   </children>
+</AnchorPane>

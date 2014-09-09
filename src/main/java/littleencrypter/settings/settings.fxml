@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefWidth="410.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="littleencrypter.settings.SettingsPresenter">
+   <children>
+      <GridPane hgap="10.0" vgap="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="85.0" prefWidth="85.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="240.0" minWidth="240.0" prefWidth="240.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="45.0" minWidth="45.0" prefWidth="45.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+          <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+          <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Key Variable:" GridPane.rowIndex="2" />
+            <TextField fx:id="keyVariableTxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Pane GridPane.rowIndex="4">
+               <children>
+                  <Label text="New Key:" GridPane.rowIndex="4" />
+               </children>
+            </Pane>
+            <Label text="Algorithm:" />
+            <Label text="Cipher:" GridPane.rowIndex="1" />
+            <ComboBox fx:id="algorithmCmb" GridPane.columnIndex="1" />
+            <ComboBox fx:id="cipherCmb" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextArea fx:id="currentKeyTxt" disable="true" prefHeight="45.0" prefRowCount="2" styleClass="hiddenKey" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Pane GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#copyNewKey" text="Copy" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+               </children>
+            </Pane>
+            <Pane GridPane.rowIndex="3">
+               <children>
+                  <Label text="Current Key:" />
+               </children>
+            </Pane>
+            <TextArea fx:id="newKeyTxt" prefHeight="45.0" prefRowCount="2" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Pane GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#copyCurrentKey" text="Copy" />
+               </children>
+            </Pane>
+            <HBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#generate" text="Generate" />
+                  <Button mnemonicParsing="false" onAction="#save" text="Save" />
+               </children>
+            </HBox>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
