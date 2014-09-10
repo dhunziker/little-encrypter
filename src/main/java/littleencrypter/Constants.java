@@ -18,6 +18,8 @@ public final class Constants {
 
 	public static final List<String> REQUIRES_IV = Arrays.asList("AES/CBC/PKCS5Padding");
 
+	public static final int KEY_LENGTH = 256;
+
 	private Constants() {
 	}
 

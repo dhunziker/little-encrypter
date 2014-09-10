@@ -15,14 +15,13 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import littleencrypter.AppUtils;
+import littleencrypter.Constants;
 
 public class CryptoService {
 
 	private static final Config CONFIG = ConfigLoader.INSTANCE.getConfig();
 
 	private static final SecureRandom SECURE_RANDOM = new SecureRandom();
-
-	private static final int KEY_LENGTH = 256;
 
 	public Result encrypt(byte[] key, byte[] plainText) {
 		try {
@@ -56,7 +55,7 @@ public class CryptoService {
 	public byte[] generateKey() {
 		try {
 			KeyGenerator gen = KeyGenerator.getInstance(CONFIG.getAlgorithm());
-			gen.init(KEY_LENGTH);
+			gen.init(Constants.KEY_LENGTH);
 			return gen.generateKey().getEncoded();
 		} catch (NoSuchAlgorithmException e) {
 			throw new IllegalArgumentException(String.format("%s is not a valid algorithm",

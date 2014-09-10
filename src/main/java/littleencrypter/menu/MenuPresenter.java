@@ -16,6 +16,7 @@ import littleencrypter.decrypt.DecryptView;
 import littleencrypter.encrypt.EncryptView;
 import littleencrypter.settings.SettingsView;
 
+import org.controlsfx.dialog.DialogStyle;
 import org.controlsfx.dialog.Dialogs;
 
 public class MenuPresenter {
@@ -82,7 +83,8 @@ public class MenuPresenter {
 	@FXML
 	public void showAbout() {
 		Dialogs.create().title(resources.getString("dialog.about.title"))
-				.message(resources.getString("dialog.about.message")).showInformation();
+				.message(resources.getString("dialog.about.message")).style(DialogStyle.NATIVE)
+				.showInformation();
 	}
 
 	private void toggleMenuItems(RadioMenuItem activeItem) {
