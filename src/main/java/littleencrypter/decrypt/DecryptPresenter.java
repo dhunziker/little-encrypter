@@ -8,12 +8,12 @@ import javax.inject.Inject;
 
 import littleencrypter.AppUtils;
 import littleencrypter.business.Config;
-import littleencrypter.business.ConfigLoader;
 import littleencrypter.business.CryptoService;
 
 public class DecryptPresenter {
 
-	private static final Config CONFIG = ConfigLoader.INSTANCE.getConfig();
+	@Inject
+	private Config config;
 
 	@Inject
 	private CryptoService cryptoService;
@@ -28,7 +28,7 @@ public class DecryptPresenter {
 	private TextField passwordTxt;
 
 	public void initialize() {
-		ivTxt.setDisable(!AppUtils.requiresIv(CONFIG.getCipher()));
+		ivTxt.setDisable(!AppUtils.requiresIv(config.getCipher()));
 	}
 
 	@FXML
@@ -38,7 +38,7 @@ public class DecryptPresenter {
 
 	@FXML
 	public void decrypt() {
-		byte[] key = AppUtils.getKey(CONFIG.getKeyVariable());
+		byte[] key = AppUtils.getKey(config.getKeyVariable());
 		byte[] result = cryptoService.decrypt(key, ivTxt.getText(), encryptedTxt.getText());
 		passwordTxt.setText(new String(result));
 	}

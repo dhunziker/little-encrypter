@@ -10,13 +10,13 @@ import javax.inject.Inject;
 
 import littleencrypter.AppUtils;
 import littleencrypter.business.Config;
-import littleencrypter.business.ConfigLoader;
 import littleencrypter.business.CryptoService;
 import littleencrypter.business.CryptoService.Result;
 
 public class EncryptPresenter {
 
-	private static final Config CONFIG = ConfigLoader.INSTANCE.getConfig();
+	@Inject
+	private Config config;
 
 	@Inject
 	private CryptoService cryptoService;
@@ -31,7 +31,7 @@ public class EncryptPresenter {
 	private TextArea ivTxt;
 
 	public void initialize() {
-		ivTxt.setDisable(!AppUtils.requiresIv(CONFIG.getCipher()));
+		ivTxt.setDisable(!AppUtils.requiresIv(config.getCipher()));
 	}
 
 	@FXML
@@ -46,7 +46,7 @@ public class EncryptPresenter {
 
 	@FXML
 	public void encrypt() {
-		byte[] key = Base64.getDecoder().decode(System.getenv(CONFIG.getKeyVariable()));
+		byte[] key = Base64.getDecoder().decode(System.getenv(config.getKeyVariable()));
 		byte[] password = AppUtils.getBytes(passwordTxt.getText());
 		Result result = cryptoService.encrypt(key, password);
 		encryptedTxt.setText(result.getCipherText());

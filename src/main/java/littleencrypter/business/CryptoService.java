@@ -13,20 +13,22 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import javax.inject.Inject;
 
 import littleencrypter.AppUtils;
 import littleencrypter.Constants;
 
 public class CryptoService {
 
-	private static final Config CONFIG = ConfigLoader.INSTANCE.getConfig();
+	@Inject
+	private Config config;
 
 	private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
 	public Result encrypt(byte[] key, byte[] plainText) {
 		try {
-			SecretKeySpec keySpec = new SecretKeySpec(key, CONFIG.getAlgorithm());
-			Cipher cipher = Cipher.getInstance(CONFIG.getCipher());
+			SecretKeySpec keySpec = new SecretKeySpec(key, config.getAlgorithm());
+			Cipher cipher = Cipher.getInstance(config.getCipher());
 			cipher.init(Cipher.ENCRYPT_MODE, keySpec, SECURE_RANDOM);
 			return new Result(cipher.getIV(), cipher.doFinal(plainText));
 		} catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException
@@ -37,8 +39,8 @@ public class CryptoService {
 
 	public byte[] decrypt(byte[] key, String iv, String cipherText) {
 		try {
-			SecretKeySpec keySpec = new SecretKeySpec(key, CONFIG.getAlgorithm());
-			Cipher cipher = Cipher.getInstance(CONFIG.getCipher());
+			SecretKeySpec keySpec = new SecretKeySpec(key, config.getAlgorithm());
+			Cipher cipher = Cipher.getInstance(config.getCipher());
 			IvParameterSpec ivParam = null;
 			if (!AppUtils.nullOrEmpty(iv)) {
 				ivParam = new IvParameterSpec(Base64.getDecoder().decode(iv));
@@ -54,12 +56,12 @@ public class CryptoService {
 
 	public byte[] generateKey() {
 		try {
-			KeyGenerator gen = KeyGenerator.getInstance(CONFIG.getAlgorithm());
+			KeyGenerator gen = KeyGenerator.getInstance(config.getAlgorithm());
 			gen.init(Constants.KEY_LENGTH);
 			return gen.generateKey().getEncoded();
 		} catch (NoSuchAlgorithmException e) {
 			throw new IllegalArgumentException(String.format("%s is not a valid algorithm",
-					CONFIG.getAlgorithm()), e);
+					config.getAlgorithm()), e);
 		}
 	}
 

@@ -10,10 +10,12 @@ import javax.inject.Inject;
 import littleencrypter.AppUtils;
 import littleencrypter.Constants;
 import littleencrypter.business.Config;
-import littleencrypter.business.ConfigLoader;
 import littleencrypter.business.CryptoService;
 
 public class SettingsPresenter {
+
+	@Inject
+	private Config config;
 
 	@Inject
 	private CryptoService cryptoService;
@@ -34,15 +36,13 @@ public class SettingsPresenter {
 	private TextArea newKeyTxt;
 
 	public void initialize() {
-		Config cfg = ConfigLoader.INSTANCE.getConfig();
-
 		algorithmCmb.setItems(Constants.ALGORITHMS);
-		algorithmCmb.setValue(cfg.getAlgorithm());
+		algorithmCmb.setValue(config.getAlgorithm());
 
 		cipherCmb.setItems(Constants.CIPHERS);
-		cipherCmb.setValue(cfg.getCipher());
+		cipherCmb.setValue(config.getCipher());
 
-		String keyVariable = cfg.getKeyVariable();
+		String keyVariable = config.getKeyVariable();
 		keyVariableTxt.setText(keyVariable);
 		currentKeyTxt.setText(System.getenv(keyVariable));
 	}
@@ -64,10 +64,9 @@ public class SettingsPresenter {
 
 	@FXML
 	public void save() {
-		Config cfg = ConfigLoader.INSTANCE.getConfig();
-		cfg.setAlgorithm(algorithmCmb.getValue());
-		cfg.setCipher(cipherCmb.getValue());
-		cfg.setKeyVariable(keyVariableTxt.getText());
+		config.setAlgorithm(algorithmCmb.getValue());
+		config.setCipher(cipherCmb.getValue());
+		config.setKeyVariable(keyVariableTxt.getText());
 	}
 
 }

@@ -3,6 +3,7 @@ package littleencrypter;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import littleencrypter.business.Config;
 import littleencrypter.business.ConfigLoader;
 import littleencrypter.menu.MenuView;
 
@@ -15,9 +16,17 @@ public class App extends Application {
 
 	private static final Logger LOG = LoggerFactory.getLogger(App.class);
 
+	private ConfigLoader configLoader;
+
 	@Override
 	public void start(Stage stage) throws Exception {
-		LOG.info(ConfigLoader.INSTANCE.getConfig().toString());
+		Injector.setLogger(LOG::debug);
+
+		configLoader = new ConfigLoader();
+		Config config = configLoader.getConfig();
+
+		LOG.info(config.toString());
+		Injector.setModelOrService(Config.class, config);
 
 		setUserAgentStylesheet(STYLESHEET_MODENA);
 
@@ -32,7 +41,7 @@ public class App extends Application {
 
 	@Override
 	public void stop() throws Exception {
-		ConfigLoader.INSTANCE.write();
+		configLoader.write();
 		LOG.info("Settings have been saved");
 		Injector.forgetAll();
 	}

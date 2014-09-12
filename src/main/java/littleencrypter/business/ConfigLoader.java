@@ -10,13 +10,11 @@ import javax.xml.bind.Unmarshaller;
 
 public class ConfigLoader {
 
-	public static final ConfigLoader INSTANCE = new ConfigLoader();
-
 	private static final String FILENAME = "config.xml";
 
 	private Config config;
 
-	private ConfigLoader() {
+	public ConfigLoader() {
 		load();
 	}
 
