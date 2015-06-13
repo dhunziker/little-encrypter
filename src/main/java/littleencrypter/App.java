@@ -1,16 +1,17 @@
 package littleencrypter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.airhacks.afterburner.injection.Injector;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import littleencrypter.business.Config;
 import littleencrypter.business.ConfigLoader;
+import littleencrypter.business.CryptoService;
 import littleencrypter.menu.MenuView;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.airhacks.afterburner.injection.Injector;
 
 public class App extends Application {
 
@@ -27,6 +28,7 @@ public class App extends Application {
 
 		LOG.info(config.toString());
 		Injector.setModelOrService(Config.class, config);
+		Injector.instantiateModelOrService(CryptoService.class);
 
 		setUserAgentStylesheet(STYLESHEET_MODENA);
 

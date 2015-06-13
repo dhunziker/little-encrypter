@@ -34,6 +34,10 @@ Start the application using:
 Known Problems
 --------------
 
-Problem: Application throws InvalidKeyException: Illegal key size or default parameters
+Problem 1: Application throws InvalidKeyException: Illegal key size or default parameters
 
 Solution: Download http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html and unzip its content to ```$JAVA_HOME/jre/lib/security/```
+
+Problem 2: Eclipse shows warning like "Access restriction: The method..."
+
+Solution: Install the e(fx)clipse plugin, clean and then rebuild the project

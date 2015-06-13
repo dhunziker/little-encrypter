@@ -3,18 +3,21 @@ package littleencrypter.business;
 import static com.insightfullogic.lambdabehave.Suite.describe;
 import static com.insightfullogic.lambdabehave.generators.Generator.asciiStrings;
 import static org.hamcrest.Matchers.not;
-import littleencrypter.AppUtils;
-import littleencrypter.business.CryptoService;
-import littleencrypter.business.CryptoService.Result;
 
 import org.junit.runner.RunWith;
 
+import com.airhacks.afterburner.injection.Injector;
 import com.insightfullogic.lambdabehave.JunitSuiteRunner;
+
+import littleencrypter.AppUtils;
+import littleencrypter.business.CryptoService.Result;
 
 @RunWith(JunitSuiteRunner.class)
 public class CryptoServiceSpec {{
 
 	CryptoService cryptoService = new CryptoService();
+	Injector.setModelOrService(Config.class, new Config());
+	Injector.injectMembers(CryptoService.class, cryptoService);
 
 	describe("a crypto service", it -> {
 
@@ -35,7 +38,7 @@ public class CryptoServiceSpec {{
 				Result result = cryptoService.encrypt(key, AppUtils.getBytes(str));
 				expect.that(str).isEqualTo(new String(cryptoService.decrypt(key,
 						result.getIv(), result.getCipherText())));
-		});	
+		});
 	});
 
 }}
